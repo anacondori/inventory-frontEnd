@@ -10,6 +10,8 @@ const base_url = environment.base_url;
   })
 export class CategoryService {
 
+  private url:string = `${base_url}/categories`;
+
   constructor(private _http: HttpClient) { }
 
   /**
@@ -17,7 +19,15 @@ export class CategoryService {
    * @returns
    */
   getCategories(){
-    const url = `${base_url}/categories`;
-    return this._http.get(url);
+    return this._http.get(this.url);
+  }
+
+  /**
+   *
+   * @param body save the categories
+   */
+  saveCategories(body:any){
+    return this._http.post(this.url, body);
   }
 }
+
