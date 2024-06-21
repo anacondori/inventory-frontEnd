@@ -23,11 +23,21 @@ export class CategoryService {
   }
 
   /**
-   *
-   * @param body save the categories
+   * save the categories
+   * @param body
    */
   saveCategories(body:any){
     return this._http.post(this.url, body);
+  }
+
+  /**
+   * update categories
+   * @param body
+   * @param id
+   */
+  updateCategories(body:any, id: number){
+    const url_id = `${this.url}/${id}`;
+    return this._http.put(url_id, body);
   }
 }
 

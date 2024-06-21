@@ -21,6 +21,7 @@ export class CategoryComponent implements OnInit{
 
   displayedColumns: string[] = ['id', 'nombre', 'descripcion', 'acciones'];
   dataSource = new MatTableDataSource<CategoryElement>();
+  category: CategoryElement[] = [];
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -35,7 +36,7 @@ export class CategoryComponent implements OnInit{
     this._categoryService.getCategories()
                          .subscribe({
                             next: (data:any)=>{
-                                            console.log('getCategories.data', data);
+                                            // console.log('getCategories.data', data);
                                             this.processCategoriesResponse(data);
                                           },
                             error:(error) =>  console.log('getCategories.error', error)
@@ -48,7 +49,7 @@ export class CategoryComponent implements OnInit{
     if (resp.metadata[0].code !== "00") return;
 
     let listCategory = resp.categoryResponse.category;
-    console.log('processCategoriesResponse', listCategory);
+    // console.log('processCategoriesResponse', listCategory);
     listCategory.forEach( (cat: CategoryElement) => {
       dataCategory.push(cat);
     });
@@ -57,24 +58,35 @@ export class CategoryComponent implements OnInit{
     this.dataSource.paginator = this.paginator;
   }
 
-  openCategoryDialog(): void {
+  openCategoryDialog(data?:CategoryElement): void {
+    // console.log('data', data);
     const dialogRef = this._dialog.open( NewCategoryComponent, {
       width: '500px',
-      data: {},
+      data: {id: data?.id, name: data?.name, description:data?.description},
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('openCategoryDialog', result);
+      // console.log('openCategoryDialog', result);
       if (result === 1) {
-        this.openSnackBar("Categoría agregada","Existosa");
+        if (!data) this.openSnackBar("Categoría agregada","Existosa");
+        if (data) this.openSnackBar("Categoría modificada","Existosa");
+
         this.getCategories();
       }
       if (result === 2 ) {
-         this.openSnackBar("Categoría no agregada","Error");
+        if (!data) this.openSnackBar("Categoría no agregada","Error");
+        if (data) this.openSnackBar("Categoría no modificada","Error");
       }
 
     });
   }
+
+
+  edit(categ: CategoryElement){
+    // console.log('edit:', categ);
+    this.openCategoryDialog(categ);
+  }
+
 
   openSnackBar(message: string, action:string): MatSnackBarRef<SimpleSnackBar>{
     return this._snackBar.open(message,action,{ duration: 2000});
