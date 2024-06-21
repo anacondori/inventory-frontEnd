@@ -48,5 +48,14 @@ export class CategoryService {
     const url_id = `${this.url}/${id}`;
     return this._http.delete(url_id);
   }
+
+  /**
+   * search categories
+   * @param id
+   */
+  searchCategories(id: number){
+    const url_id = `${this.url}/${id}`;
+    return this._http.get(url_id);
+  }
 }
 

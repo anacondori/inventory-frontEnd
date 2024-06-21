@@ -104,6 +104,23 @@ export class CategoryComponent implements OnInit{
     });
   }
 
+  onSearch(id: string){
+    if (!id ) return this.getCategories();
+    const categId: number = Number(id);
+
+    this._categoryService.searchCategories(categId)
+                             .subscribe({
+                                next: (data:any) => {
+                                          // console.log('onSearch.searchCategories.id', id);
+                                          this.processCategoriesResponse(data);
+                                       },
+                                error:(error) => {
+                                          this.getCategories();
+                                          throw Error("Error en searchCategories");
+                                       }
+                             });
+  }
+
 
   openSnackBar(message: string, action:string): MatSnackBarRef<SimpleSnackBar>{
     return this._snackBar.open(message,action,{ duration: 2000});

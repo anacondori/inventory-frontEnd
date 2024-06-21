@@ -4,8 +4,8 @@
     </div>
 
     <mat-form-field>
-      <mat-label>Buscqueda de Categoria</mat-label>
-      <input matInput placeholder="Categoria">
+      <mat-label>Busqueda de Categoria (id)</mat-label>
+      <input type="number" matInput #inputSearch placeholder="Categoria" (keyup)="onSearch(inputSearch.value)">
     </mat-form-field>
 
     <div class="rigth mb-3">
