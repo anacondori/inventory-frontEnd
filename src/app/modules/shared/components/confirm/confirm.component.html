@@ -1,0 +1,13 @@
+<div>
+  <h2 mat-dialog-title>Borrar Categoría</h2>
+
+  <mat-dialog-content class="text-center">
+      <p>¿Esta seguro de borrar el registro:
+         {{this._data.id}} - {{this._data.name}} ?</p>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button color="primary" (click)="onDelete()" cdkFocusInitial>Si</button>
+    <button mat-button color="primary" (click)="onCancel()">No</button>
+  </mat-dialog-actions>
+</div>

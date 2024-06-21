@@ -18,7 +18,7 @@ export class NewCategoryComponent implements OnInit{
   public _data = inject(MAT_DIALOG_DATA);
 
   private dataExiste = false;
-  public titulo:string = 'Agregar nueva Categoria';
+  public titulo:string = 'Agregar nueva ';
 
 
   ngOnInit(): void {
@@ -29,9 +29,9 @@ export class NewCategoryComponent implements OnInit{
     });
 
     this.dataExiste = false;
-    if (this._data && this._data.id > 0) {
+    if (this._data && this._data.id > 0 ) {
        this.dataExiste = true;
-       this.titulo = 'Modificar la Categoria';
+       this.titulo = 'Modificar ';
     }
   }
 

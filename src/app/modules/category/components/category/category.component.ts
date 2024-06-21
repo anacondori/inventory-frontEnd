@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { NewCategoryComponent } from '../new-category/new-category.component';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
+import { ConfirmComponent } from '../../../shared/components/confirm/confirm.component';
 
 
 @Component({
@@ -74,17 +75,33 @@ export class CategoryComponent implements OnInit{
         this.getCategories();
       }
       if (result === 2 ) {
-        if (!data) this.openSnackBar("Categoría no agregada","Error");
-        if (data) this.openSnackBar("Categoría no modificada","Error");
+        if (data) this.openSnackBar("Error en la información","Error");
       }
 
     });
   }
 
-
   edit(categ: CategoryElement){
     // console.log('edit:', categ);
     this.openCategoryDialog(categ);
+  }
+
+  delete(categ: CategoryElement){
+    // console.log('delete:', categ);
+    const dialogRef = this._dialog.open( ConfirmComponent, {
+      width: '500px',
+      data: {id: categ.id, name: categ.name, description:categ.description},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log('openCategoryDialog', result);
+      if (result === 1) {
+         this.openSnackBar("Categoría eliminada","Existosa");
+         this.getCategories();
+      }
+      if (result === 2 ) this.openSnackBar("Error en la información","Error");
+
+    });
   }
 
 
