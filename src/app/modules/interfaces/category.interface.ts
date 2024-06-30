@@ -1,3 +1,5 @@
+import { Metadatum } from "./metadata.interface";
+
 export interface Category {
   metadata:         Metadatum[];
   categoryResponse: CategoryResponse;
@@ -13,8 +15,3 @@ export interface CategoryElement {
   description: string;
 }
 
-export interface Metadatum {
-  date: string;
-  code: string;
-  type: string;
-}

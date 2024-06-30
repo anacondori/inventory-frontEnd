@@ -1,0 +1,14 @@
+
+.rigth{
+  text-align: right;
+  margin-right: 5px;
+}
+
+table {
+  width: 100%;
+  table-layout:fixed;
+}
+
+img{
+  width: 40%;
+}

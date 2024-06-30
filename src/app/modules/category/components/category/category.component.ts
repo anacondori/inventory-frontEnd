@@ -1,11 +1,12 @@
-import { AfterViewInit, Component, inject, OnInit, signal, ViewChild } from '@angular/core';
-import { CategoryService } from '../../../shared/services/category.service';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Category, CategoryElement } from '../../../interfaces/category.interface';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
-import { NewCategoryComponent } from '../new-category/new-category.component';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
+
+import { Category, CategoryElement } from '../../../interfaces/category.interface';
+import { NewCategoryComponent } from '../new-category/new-category.component';
+import { CategoryService } from '../../../shared/services/category.service';
 import { ConfirmComponent } from '../../../shared/components/confirm/confirm.component';
 
 
@@ -50,11 +51,12 @@ export class CategoryComponent implements OnInit{
     if (resp.metadata[0].code !== "00") return;
 
     let listCategory = resp.categoryResponse.category;
-    // console.log('processCategoriesResponse', listCategory);
-    listCategory.forEach( (cat: CategoryElement) => {
+      //console.log('processCategoriesResponse', listCategory);
+      listCategory.forEach( (cat: CategoryElement) => {
       dataCategory.push(cat);
     });
 
+    //set the datasource
     this.dataSource = new MatTableDataSource<CategoryElement>(dataCategory);
     this.dataSource.paginator = this.paginator;
   }
