@@ -23,4 +23,41 @@ export class ProductService {
     return this._http.get(this.url);
   }
 
+  /**
+   * save the product
+   * @param body
+   */
+  saveProduct(body:any){
+    return this._http.post(this.url, body);
+  }
+
+  /**
+   * update product
+   * @param body
+   * @param id
+   */
+  updateProduct(body:any, id: number){
+    const url_id = `${this.url}/${id}`;
+    return this._http.put(url_id, body);
+  }
+
+  /**
+   * detele product
+   * @param id
+   */
+  deleteProduct(id: number){
+    const url_id = `${this.url}/${id}`;
+    return this._http.delete(url_id);
+  }
+
+  /**
+   * search products
+   * @param id
+   */
+  searchProducts(id: number){
+    const url_id = `${this.url}/${id}`;
+    return this._http.get(url_id);
+  }
+
+
 }

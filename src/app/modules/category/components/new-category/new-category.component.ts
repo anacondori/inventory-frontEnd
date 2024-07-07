@@ -21,8 +21,9 @@ export class NewCategoryComponent implements OnInit{
   public titulo:string = 'Agregar nueva ';
 
 
+
   ngOnInit(): void {
-    // console.log('ngOnInnit', this._data);
+    // console.log('ngOnInnit', this._data)
     this.categoryForm = this._fb.group({
       name:[this._data.name, Validators.required],
       description:[this._data.description, Validators.required],
@@ -69,7 +70,6 @@ export class NewCategoryComponent implements OnInit{
   onCancel(): void {
     this._dialogRef.close(3);
   }
-
 
 
 }

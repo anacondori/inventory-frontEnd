@@ -2,10 +2,11 @@ import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 
 import { Products, ProductElement } from '../../interfaces/product.interface';
 import { ProductService } from '../../shared/services/product.service';
+import { NewProductComponent } from '../new-product/new-product.component';
 
 @Component({
   selector: 'app-product',
@@ -61,11 +62,39 @@ export class ProductComponent implements OnInit{
     this.dataSource.paginator = this.paginator;
   }
 
-  openProductDialog(data?:ProductElement): void {}
+  openProductDialog(data?:ProductElement): void {
+    // console.log('data', data);
+    const dialogRef = this._dialog.open( NewProductComponent, {
+      width: '500px',
+      data: {id: data?.id, name: data?.name, precio:data?.price, cantidad:data?.account, categoria:data?.categName, foto:data?.picture},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      //console.log('openProductDialog', result);
+      if (result === 1) {
+        if (!data) this.openSnackBar("Producto agregado","Exito");
+        if (data) this.openSnackBar("Producto modificado","Exito");
+
+        this.getProducts();
+      }
+      if (result === 2 ) {
+        if (data) this.openSnackBar("Error en la información","Error");
+      }
+
+    });
+  }
+
 
   edit(product: ProductElement){}
 
   delete(product: ProductElement){}
 
   onSearch(id: string){}
+
+
+  openSnackBar(message: string, action:string): MatSnackBarRef<SimpleSnackBar>{
+    return this._snackBar.open(message,action,{ duration: 2000});
+  }
+
+
 }
