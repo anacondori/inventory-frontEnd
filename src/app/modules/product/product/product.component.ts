@@ -96,7 +96,7 @@ export class ProductComponent implements OnInit{
    // console.log('delete:', product);
    const dialogRef = this._dialog.open( ConfirmComponent, {
     width: '500px',
-    data: {id: product.id, name: product.name, price:product.price, account:product.account},
+    data: {id: product.id, module:"product", name: product.name, price:product.price, account:product.account},
   });
 
   dialogRef.afterClosed().subscribe(result => {
