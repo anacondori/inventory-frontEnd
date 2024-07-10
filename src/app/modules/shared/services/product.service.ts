@@ -51,6 +51,15 @@ export class ProductService {
   }
 
   /**
+   * search product
+   * @param name
+   */
+  searchProductByName(name: string){
+    const url_name = `${this.url}/filter/${name}`;
+    return this._http.get(url_name);
+  }
+
+  /**
    * search products
    * @param id
    */

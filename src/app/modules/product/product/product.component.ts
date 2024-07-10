@@ -110,14 +110,14 @@ export class ProductComponent implements OnInit{
   });
   }
 
-  onSearch(id: string){
-    if (!id ) return this.getProducts();
-    const productId: number = Number(id);
-
-    this._productService.searchProducts(productId)
+  onSearch(nombre: string){
+    if (!nombre && nombre.length <= 0 ) return this.getProducts();
+    //const productId: number = Number(id);
+    //this._productService.searchProducts(productId)
+    this._productService.searchProductByName(nombre)
                              .subscribe({
                                 next: (data:any) => {
-                                          // console.log('onSearch.searchProducts.id', id);
+                                          // console.log('onSearch.searchProducts.name', id);
                                           this.processProductsResponse(data);
                                        },
                                 error:(error) => {
@@ -126,6 +126,7 @@ export class ProductComponent implements OnInit{
                                        }
                              });
   }
+
 
 
   openSnackBar(message: string, action:string): MatSnackBarRef<SimpleSnackBar>{
