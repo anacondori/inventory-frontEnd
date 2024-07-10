@@ -7,6 +7,7 @@ import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/s
 import { Products, ProductElement } from '../../interfaces/product.interface';
 import { ProductService } from '../../shared/services/product.service';
 import { NewProductComponent } from '../new-product/new-product.component';
+import { ConfirmComponent } from '../../shared/components/confirm/confirm.component';
 
 @Component({
   selector: 'app-product',
@@ -53,6 +54,8 @@ export class ProductComponent implements OnInit{
      //console.log('processCategoriesResponse', listProduct);
      listProduct.forEach( (prod: ProductElement) => {
       prod.categName = prod.category.name;
+      prod.categid = prod.category.id;
+      prod.pictureName = prod.picture;
       prod.picture = 'data:image/jpeg;base64,'+prod.picture;
      dataProduct.push(prod);
     });
@@ -63,10 +66,10 @@ export class ProductComponent implements OnInit{
   }
 
   openProductDialog(data?:ProductElement): void {
-    // console.log('data', data);
+    //console.log('data', data);
     const dialogRef = this._dialog.open( NewProductComponent, {
       width: '500px',
-      data: {id: data?.id, name: data?.name, precio:data?.price, cantidad:data?.account, categoria:data?.categName, foto:data?.picture},
+      data: {id: data?.id, name: data?.name, price:data?.price, account:data?.account, categid:data?.categid, picture:data?.pictureName},
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -85,11 +88,44 @@ export class ProductComponent implements OnInit{
   }
 
 
-  edit(product: ProductElement){}
+  edit(product: ProductElement){
+    this.openProductDialog(product);
+  }
 
-  delete(product: ProductElement){}
+  delete(product: ProductElement){
+   // console.log('delete:', product);
+   const dialogRef = this._dialog.open( ConfirmComponent, {
+    width: '500px',
+    data: {id: product.id, name: product.name, price:product.price, account:product.account},
+  });
 
-  onSearch(id: string){}
+  dialogRef.afterClosed().subscribe(result => {
+    // console.log('openCategoryDialog', result);
+    if (result === 1) {
+       this.openSnackBar("Producto eliminado","Exito");
+       this.getProducts();
+    }
+    if (result === 2 ) this.openSnackBar("Error en la información","Error");
+
+  });
+  }
+
+  onSearch(id: string){
+    if (!id ) return this.getProducts();
+    const productId: number = Number(id);
+
+    this._productService.searchProducts(productId)
+                             .subscribe({
+                                next: (data:any) => {
+                                          // console.log('onSearch.searchProducts.id', id);
+                                          this.processProductsResponse(data);
+                                       },
+                                error:(error) => {
+                                          this.getProducts();
+                                          throw Error("Error en searchProducts");
+                                       }
+                             });
+  }
 
 
   openSnackBar(message: string, action:string): MatSnackBarRef<SimpleSnackBar>{

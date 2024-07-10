@@ -16,6 +16,8 @@ export interface ProductElement {
   price:    number;
   account:  number;
   category: CategoryElement;
+  categid?: number;
   categName?: string;
   picture:  string;
+  pictureName: string;
 }

@@ -28,15 +28,15 @@ export class NewProductComponent implements OnInit{
 
 
   ngOnInit(): void {
-    // console.log('ngOnInnit', this._data);
+    //console.log('ngOnInnit', this._data);
     this.getCategories();
 
     this.productForm = this._fb.group({
       name:[this._data.name, Validators.required],
       price:[this._data.price, Validators.required],
       account:[this._data.account, Validators.required],
-      category:[this._data.category, Validators.required],
-      picture:[this._data.pìcture, Validators.required],
+      category:[this._data.categid, Validators.required],
+      picture:[this._data.pictureName, Validators.required],
     });
 
     this.dataExiste = false;
@@ -79,7 +79,7 @@ export class NewProductComponent implements OnInit{
         this._productService.updateProduct(uploadImageData, this._data.id)
                                  .subscribe({
                                     next: (data:any) => {
-                                              console.log('onSave.updateProduct.data', data);
+                                              //console.log('onSave.updateProduct.data', data);
                                               this._dialogRef.close(1);
                                            },
                                     error:(error) =>  this._dialogRef.close(2)
