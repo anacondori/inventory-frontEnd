@@ -8,6 +8,7 @@ import { Products, ProductElement } from '../../interfaces/product.interface';
 import { ProductService } from '../../shared/services/product.service';
 import { NewProductComponent } from '../new-product/new-product.component';
 import { ConfirmComponent } from '../../shared/components/confirm/confirm.component';
+import { UtilService } from '../../shared/services/util.service';
 
 @Component({
   selector: 'app-product',
@@ -19,6 +20,9 @@ export class ProductComponent implements OnInit{
   private _productService = inject(ProductService);
   private _dialog = inject(MatDialog);
   private _snackBar = inject(MatSnackBar);
+  private _util = inject(UtilService);
+
+  public isAdmin: boolean = false;
 
   displayedColumns: string[] = ['id', 'name', 'price', 'account', 'category', 'picture',  'acciones'];
   dataSource = new MatTableDataSource<ProductElement>();
@@ -31,6 +35,7 @@ export class ProductComponent implements OnInit{
 
   ngOnInit(): void {
     this.getProducts();
+    this.isAdmin = this._util.isAdmin();
   }
 
 

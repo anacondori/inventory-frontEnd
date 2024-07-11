@@ -8,6 +8,7 @@ import { Category, CategoryElement } from '../../../interfaces/category.interfac
 import { NewCategoryComponent } from '../new-category/new-category.component';
 import { CategoryService } from '../../../shared/services/category.service';
 import { ConfirmComponent } from '../../../shared/components/confirm/confirm.component';
+import { UtilService } from '../../../shared/services/util.service';
 
 
 @Component({
@@ -20,6 +21,9 @@ export class CategoryComponent implements OnInit{
   private _categoryService = inject(CategoryService);
   private _dialog = inject(MatDialog);
   private _snackBar = inject(MatSnackBar);
+  private _util = inject(UtilService);
+
+  public isAdmin: boolean = false;
 
   displayedColumns: string[] = ['id', 'nombre', 'descripcion', 'acciones'];
   dataSource = new MatTableDataSource<CategoryElement>();
@@ -31,6 +35,8 @@ export class CategoryComponent implements OnInit{
 
   ngOnInit(): void {
     this.getCategories();
+    //console.log('this._util.getRoles()',this._util.getRoles());
+    this.isAdmin = this._util.isAdmin();
   }
 
 
