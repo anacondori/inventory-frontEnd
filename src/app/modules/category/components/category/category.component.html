@@ -8,11 +8,12 @@
       <input type="number" matInput #inputSearch placeholder="Categoria" (keyup)="onSearch(inputSearch.value)">
     </mat-form-field>
 
-    <div class="rigth mb-3">
-        <button (click)="openCategoryDialog()"
-                class="btn btn-primary">Agregar Categoría</button>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
+      <button (click)="exportExcel()"
+              class="btn btn-primary">Exportar Categorias</button>
+      <button (click)="openCategoryDialog()"
+              class="btn btn-primary">Agregar Categoría</button>
     </div>
-
 
     <div mat-card-image></div>
 

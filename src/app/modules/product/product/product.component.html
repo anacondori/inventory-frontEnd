@@ -8,9 +8,11 @@
     <input matInput #inputSearch placeholder="Producto" (keyup)="onSearch(inputSearch.value)">
   </mat-form-field>
 
-  <div class="rigth mb-3">
-      <button (click)="openProductDialog()"
-              class="btn btn-primary">Agregar Producto</button>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
+    <button (click)="exportExcel()"
+            class="btn btn-primary">Exportar Productos</button>
+    <button (click)="openProductDialog()"
+            class="btn btn-primary">Agregar Producto</button>
   </div>
 
 

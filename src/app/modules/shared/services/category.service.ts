@@ -57,5 +57,16 @@ export class CategoryService {
     const url_id = `${this.url}/${id}`;
     return this._http.get(url_id);
   }
+
+  /**
+   * export Excel categories
+   */
+  exportCategories(){
+    const url_id = `${this.url}/export/excel`;
+    return this._http.get(url_id, {
+        responseType: 'blob'
+    });
+  }
+
 }
 

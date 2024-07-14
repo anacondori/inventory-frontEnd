@@ -134,4 +134,23 @@ export class CategoryComponent implements OnInit{
     return this._snackBar.open(message,action,{ duration: 2000});
   }
 
+
+  exportExcel(){
+    this._categoryService.exportCategories()
+        .subscribe({
+            next: ( (data:any) => {
+                    const file = new Blob([data], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+                    const fileUrl = URL.createObjectURL(file);
+                    let anchor = document.createElement("a");
+                    anchor.download = "categories.xlsx";
+                    anchor.href = fileUrl;
+                    anchor.click();
+
+                    this.openSnackBar("Categorias exportadas al EXCEL","Exito");
+                    }
+                  ),
+            error:(error) =>  this.openSnackBar("Error al exportar las Categorias","Error")
+        })
+  }
+
 }

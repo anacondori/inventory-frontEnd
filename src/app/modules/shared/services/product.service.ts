@@ -68,5 +68,15 @@ export class ProductService {
     return this._http.get(url_id);
   }
 
+  /**
+   * export Excel products
+   */
+  exportProducts(){
+    const url_id = `${this.url}/export/excel`;
+    return this._http.get(url_id, {
+        responseType: 'blob'
+    });
+  }
+
 
 }
